@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+</head>
+<body>
+    <h1>顧客一覧</h1>
+
+    <form method="get">
+        <label>顧客番号/氏名: <input type="text" name="query" value="{{ query }}"></label>
+        <label>購入日: <input type="date" name="purchase_date" value="{{ purchase_date }}"></label>
+        <button type="submit">検索</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th><a href="?sort_by=customer__id">顧客番号</a></th>
+                <th><a href="?sort_by=customer__last_name">氏名</a></th>
+                <th><a href="?sort_by=customer__last_name_kana">カナ</a></th>
+                <th><a href="?sort_by=purchase_date">購入日</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in purchase_histories %}
+                <tr>
+                    <td>{{ history.customer.id }}</td>
+                    <td>{{ history.customer.full_name }}</td>
+                    <td>{{ history.customer.full_name_kana }}</td>
+                    <td>{{ history.purchase_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?{% if query %}query={{ query }}&{% endif %}{% if purchase_date %}purchase_date={{ purchase_date }}&{% endif %}page=1">最初</a>
+                <a href="?{% if query %}query={{ query }}&{% endif %}{% if purchase_date %}purchase_date={{ purchase_date }}&{% endif %}page={{ page_obj.previous_page_number }}">前</a>
+            {% endif %}
+            <span class="current">
+                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?{% if query %}query={{ query }}&{% endif %}{% if purchase_date %}purchase_date={{ purchase_date }}&{% endif %}page={{ page_obj.next_page_number }}">次</a>
+                <a href="?{% if query %}query={{ query }}&{% endif %}{% if purchase_date %}purchase_date={{ purchase_date }}&{% endif %}page={{ page_obj.paginator.num_pages }}">最後</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
