@@ -48,7 +48,7 @@ const CustomerList = () => {
           onChange={e => setEndDate(e.target.value)}
         />
         <button onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}>
-          Toggle Order
+          検索
         </button>
       </div>
       <table>
