@@ -1,6 +1,13 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CustomerViewSet, PurchaseHistoryViewSet
+
+router = DefaultRouter()
+
+# ViewSetの登録
+router.register(r'customers', CustomerViewSet, basename='customer')
+router.register(r'purchase-history', PurchaseHistoryViewSet, basename='purchasehistory')
 
 urlpatterns = [
-    path('api/customers/', views.customer_list, name='customer_list'),
+    path('', include(router.urls)),  # ルーターのURLパターンを含める
 ]

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'corsheaders'
 ]
 
@@ -102,6 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ORIGIN_WHITELIST = [
+  'http://localhost:3000',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
